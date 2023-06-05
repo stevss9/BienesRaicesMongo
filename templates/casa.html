@@ -1,0 +1,197 @@
+<!--Completo-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Agregar Casa</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/styles.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300&display=swap');
+
+        .a{
+            color: white;
+            background-color: black;
+        }
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: #cccccc;
+            background: -webkit-linear-gradient(to right, #cccccc, #cccccc, #cccccc);
+            background: linear-gradient(to right, #cccccc, #cccccc, #cccccc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Poppins";
+        }
+
+        .modal {
+            background: #FFFFFF;
+            box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            max-width: 100%;
+            /* Modifica este valor según el tamaño deseado */
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input_container {
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 4fr 2fr;
+            gap: 15px;
+        }
+
+        .split input {
+            width: 100%;
+        }
+
+        .input_label {
+            font-size: 12px;
+            color: #8B8E98;
+            font-weight: 600;
+            margin: 10px;
+        }
+
+        .input_field {
+            width: auto;
+            height: 40px;
+            padding: 0 0 0 16px;
+            border-radius: 9px;
+            outline: none;
+            background-color: #F2F2F2;
+            border: 1px solid #e5e5e500;
+            transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+        }
+
+        .input_field:focus {
+            border: 1px solid transparent;
+            box-shadow: 0px 0px 0px 2px #242424;
+            background-color: transparent;
+        }
+
+        /* Reset input number styles */
+        .input_field::-webkit-outer-spin-button,
+        .input_field::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .checkout {
+            position: relative;
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 18px;
+            letter-spacing: 0.05em;
+            border-radius: 0.8em;
+            border: none;
+            background: #6f69b2;
+            color: ghostwhite;
+            overflow: hidden;
+        }
+
+        .checkout span {
+            position: relative;
+            transition: color 0.6s;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8em 1.2em 0.8em 1.05em;
+        }
+
+        .checkout::before,
+        .checkout::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .checkout::before {
+            content: "";
+            background: #000;
+            width: 120%;
+            left: -10%;
+            transform: skew(30deg);
+            transition: transform 0.5s cubic-bezier(0.3, 1, 0.8, 1);
+        }
+
+        .checkout:hover::before {
+            transform: translate3d(100%, 0, 0);
+        }
+
+        .checkout:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal">
+        <form action="/casa" method="POST">
+            <h3 style="text-align: center;">Ingresar los datos de la Casa</h3>
+            <div class="card-info" style="width: 560px;">
+                <div class="input_container">
+                    <label class="input_label">ID Casa</label>
+                    <input class="input_field" type="number" placeholder="Ingrese el id Casa" name="_id" required>
+                </div>
+                <div class="input_container">
+                    <label class="input_label">Ingrese Nombre Casa</label>
+                    <input class="input_field" type="text" placeholder="Ingrese Nombre Casa" name="nombre" required>
+                </div>
+                <div class="input_container">
+                    <label class="input_label">Ubicación</label>
+                    <input class="input_field" type="text" placeholder="Ubicación" name="ubicacion" required>
+                </div>
+                <div class="input_container">
+                    <label class="input_label">Precio</label>
+                    <input class="input_field" type="number" placeholder="Precio" name="precio" required>
+                </div>
+                <div class="input_container">
+                    <label class="input_label">Habitaciones</label>
+                    <input class="input_field" type="number" placeholder="Habitaciones" name="habitaciones" required>
+                </div>
+                <div class="input_container">
+                    <label class="input_label">Baños</label>
+                    <input class="input_field" type="number" placeholder="Baños" name="banos" required>
+                </div>
+            </div>
+            <br>
+            <center>
+                <button class="checkout" style="cursor: pointer;" type="submit">
+                    <span>Ingresar Casa</span>
+                </button>
+            </center>
+            
+        </form>
+        <br>
+        <center>
+            <button class="checkout" type="button" >
+                <span><a href="{{ url_for('addPropiedad') }}" style="color: white;">Regresar</a></span>
+            </button>
+        </center>
+        <br>
+
+    </div>
+</body>
+
+</html>

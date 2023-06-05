@@ -1,0 +1,129 @@
+<!--Completado-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SMD Sistema</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+    <style>
+        .csa {
+            background-color: #2b2e38;
+            color: white;
+        }
+    </style>
+    </head>
+
+    <body>
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+                <a href="#" class="w3-bar-item w3-button"><b>SMD</b> Bienes y Raices</a>
+                <!-- Float links to the right. Hide them on small screens -->
+                <div class="w3-right w3-hide-small">
+                    <a href="{{ url_for('index') }}" class="w3-bar-item w3-button" style="color: red;"><strong>Cerrar
+                            Session</strong></a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="container">
+            <br><br>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <a href="{{ url_for('addPropiedad') }}">
+                                <img src="/static/assets/img/agregar.png" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;">Agregar Bienes</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <a href="{{ url_for('bienes') }}">
+                                <img src="/static/assets/img/vista.png" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;">Ver Bienes Disponibles</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <a href="{{ url_for('editPropiedad') }}">
+                                <img src="/static/assets/img/editar.png" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;">Modificar Propiedades</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <a href="{{ url_for('editE') }}">
+                                <img src="/static/assets/img/agregar-usuario.png" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;">Empleados</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <a href="{{ url_for('editC') }}">
+                                <img src="/static/assets/img/agregar-usuario1.png" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;">Clientes</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="width: 300px;">
+                        <div class="card-body">
+                            <a href="{{ url_for('vistaventa') }}">
+                                <img src="/static/assets/img/etiqueta-de-precio.png" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;">Ventas</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="w3-center csa w3-padding-16">
+            <p>Hecho por <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
+                    class="w3-hover-text-green" style="color: white;"> Grupo 5 - Universidad de las Fuerzas Armadas
+                    ESPE</a></p>
+        </footer>
+    </body>
+
+
+</html>

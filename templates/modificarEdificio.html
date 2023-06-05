@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propiedades</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">APP API-REST PYTHON - FLASK - MONGODB</h1>
+    </div>
+
+    <div class="container">
+        <div class="row row-col-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2">
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Propiedades</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <div class="row">
+                                {% for propiedad in propiedades %}
+
+                                <div class="col">
+                                    <li class="list-group-item mb-3">
+                                        <form action="/edit/edificio/{{propiedad._id}}" method="POST">
+                                            <div class="mb-3">
+                                                <label for="nombre" class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{propiedad.nombre}}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="ubicacion" class="form-label">Ubicación</label>
+                                                <input type="text" class="form-control" id="ubicacion" name="ubicacion" value="{{propiedad.ubicacion}}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="precio" class="form-label">Precio</label>
+                                                <input type="text" class="form-control" id="precio" name="precio" value="{{propiedad.precio}}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pisos" class="form-label">Pisos</label>
+                                                <input type="text" class="form-control" id="pisos" name="pisos" value="{{propiedad.pisos}}">
+                                            </div>
+
+                                            <input type="hidden" name="_id" value="{{propiedad._id}}">
+                                            <button class="btn btn-primary btn-sm mt-3" type="submit">Guardar</button>
+                                        </form>
+                                    </li>
+                                </div>
+                                
+                                
+
+                                {% endfor %}
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
