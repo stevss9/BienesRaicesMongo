@@ -13,6 +13,8 @@ db = dbase.dbConnection()
 transacciones_collection = db['Transacciones']
 collection = db['Comentarios']
 usuarios_collection = db['usuarios']
+empleados_collection = db['empleados']
+transacciones = db['Transacciones']
 
 app = Flask(__name__, static_folder='static')
 
@@ -82,7 +84,7 @@ def registrarse():
     }
 
     usuarios_collection.insert_one(usuario)
-    return render_template('inicio.html')
+    return render_template('login.html')
 
 @app.route('/modificarCasa')
 def modificarCasa():
@@ -105,6 +107,8 @@ def modificarDepartamento():
 
     return render_template('modificarDepartamento.html', propiedades=propiedades_recibidas)
 
+
+
 @app.route('/search', methods=['GET'])
 def search():
     ubicacion = request.args.get('ubicacion')
@@ -125,6 +129,28 @@ def searchD():
     propiedades = db['propiedades'].find({'tipo': 'departamento','nombre': nombre})
 
     return render_template('modificarDepartamento.html', propiedades=propiedades)
+
+@app.route('/searchEmpleados', methods=['GET'])
+def searchEmpleados():
+    nombre = request.args.get('nombre')
+    empleados = db['empleados'].find({'nombre': nombre})
+
+    return render_template('empleadoslista.html', empleados=empleados)
+
+@app.route('/searchCliente', methods=['GET'])
+def searchCliente():
+    nombre = request.args.get('nombre')
+    clientes = db['clientes'].find({'nombre': nombre})
+
+    return render_template('clienteslista.html', clientes=clientes)
+
+@app.route('/searchVenta', methods=['GET'])
+def searchVenta():
+    id_venta = request.args.get('_id')
+    ventas = db['Transacciones'].find({'_id': id_venta})
+
+    return render_template('historialventa.html', ventas=ventas)
+
 
 @app.route('/departamento')
 def departamento():
@@ -178,11 +204,30 @@ def bienes():
 
     return render_template('bienes.html', propiedades=propiedades)
 
+@app.route('/registrarVenta')
+def registrarVenta():
+    propiedades = db['propiedades'].find()
+
+    return render_template('registroventa.html', propiedades=propiedades)
+
+@app.route('/darIdPropiedad/<string:propiedad_id>')
+def darIdPropiedad(propiedad_id):
+    propiedades = db['propiedades'].find({'_id': propiedad_id})
+
+    return render_template('registrarventa.html', propiedades=propiedades)
+
+
 @app.route('/getClientes')
 def getClientes():
     clientes = db['clientes'].find()
 
     return render_template('clienteslista.html', clientes=clientes)
+
+@app.route('/getClientesVenta')
+def getClientesVenta():
+    clientes = db['clientes'].find()
+
+    return render_template('registrarventa.html', clientes=clientes)
 
 @app.route('/getEmpleados')
 def getEmpleados():
@@ -190,6 +235,11 @@ def getEmpleados():
 
     return render_template('empleadoslista.html', empleados=empleados)
 
+@app.route('/getEmpleadosVenta')
+def getEmpleadosVenta():
+    empleados = db['empleados'].find()
+
+    return render_template('registrarventa.html', empleados=empleados)
 
 @app.route('/casa', methods=['POST'])
 def addCasa():
@@ -279,7 +329,7 @@ def addEmpleado():
             'cargo': cargo
         }
         empleados.insert_one(empleado)
-        return redirect(url_for('index'))
+        return redirect(url_for('editE'))
     else:
         return notFound()
 
@@ -301,7 +351,7 @@ def addCliente():
             'email': email
         }
         clientes.insert_one(cliente)
-        return redirect(url_for('index'))
+        return redirect(url_for('editC'))
     else:
         return notFound()
 
@@ -310,14 +360,14 @@ def deleteEmpleado(empleado_id):
     empleados = db['empleados']
     empleados.delete_one({'_id': empleado_id})
 
-    return redirect(url_for('index'))
+    return redirect(url_for('getEmpleados'))
 
 @app.route('/delete/cliente/<string:cliente_id>')
 def deleteCliente(cliente_id):
     clientes = db['clientes']
     clientes.delete_one({'_id': cliente_id})
 
-    return redirect(url_for('index'))
+    return redirect(url_for('getClientes'))
 
 
 @app.route('/delete/<string:propiedad_id>')
@@ -325,7 +375,7 @@ def delete(propiedad_id):
     propiedades = db['propiedades']
     propiedades.delete_one({'_id': propiedad_id})
 
-    return redirect(url_for('index'))
+    return redirect(url_for('bienes'))
 
 @app.route('/edit/casa/<string:propiedad_id>', methods=['POST'])
 def editCasa(propiedad_id):
@@ -385,7 +435,32 @@ def editEdificio(propiedad_id):
         return redirect(url_for('modificarEdificio'))
     else:
         return notFound()
-    
+
+
+@app.route('/propiedades/<propiedad_id>', methods=['POST'])
+def registrar_venta(propiedad_id):
+    casa = request.form.get('casa')
+    nombre_empleado = request.form.get('nombreE')
+    nombre_cliente = request.form.get('nombreC')
+    fecha_compra = request.form.get('fecha')
+    valor = request.form.get('valor')
+
+    # Crea un documento con los datos del formulario
+    documento = {
+        'propiedad_id': propiedad_id,
+        'casa': casa,
+        'nombre_empleado': nombre_empleado,
+        'nombre_cliente': nombre_cliente,
+        'fecha_compra': fecha_compra,
+        'valor': valor
+    }
+
+    # Inserta el documento en la colección 'Transacciones'
+    transacciones.insert_one(documento)
+
+    # Redirecciona o realiza alguna acción después de insertar los datos
+    return redirect(url_for('historialventa'))
+
 
 @app.errorhandler(404)
 def notFound(error=None):

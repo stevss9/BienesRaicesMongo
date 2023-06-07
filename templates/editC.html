@@ -1,15 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Clientes</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .csa {
+            background-color: #2b2e38;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
-    
-    <h2>Clientes</h2>
-    <a href="{{ url_for('addCliente') }}">Agregar Cliente</a>
-    <a href="{{ url_for('getClientes') }}">Ver clientes</a>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+            <a href="#" class="w3-bar-item w3-button"><b>SMD</b> Bienes y Raices</a>
+            <!-- Float links to the right. Hide them on small screens -->
+            <div class="w3-right w3-hide-small">
+                <a href="{{ url_for('principal') }}" class="w3-bar-item w3-button"
+                    style="color: blue;"><strong>Regresar</strong></a>
+            </div>
+            <div class="w3-right w3-hide-small">
+                <a href="{{ url_for('index') }}" class="w3-bar-item w3-button" style="color: red;"><strong>Cerrar
+                        Session</strong></a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br><br><br>
+    <center>
+        <h2 style="text-align: cente;">Clientes</h2>
+    </center>
+    <div class="container">
+        <br><br><br><br><br><br>
+        <div class="row">
+            <div class="col-sm-6 d-flex justify-content-center align-items-center">
+                <div class="card" style="width: 300px;">
+                    <div class="card-body">
+                        <a href="{{ url_for('addCliente') }}">
+                            <img src="/static/assets/img/usuario.png" class="card-img-top">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align: center;">Agregar Clientes</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-center align-items-center">
+                <div class="card" style="width: 300px;">
+                    <div class="card-body">
+                        <a href="{{ url_for('getClientes') }}">
+                            <img src="/static/assets/img/cliente.png" class="card-img-top">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align: center;">Ver Clientes</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <!-- Footer -->
+    <footer class="w3-center csa w3-padding-16">
+        <p>Hecho por <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
+                class="w3-hover-text-green" style="color: white;"> Grupo 5 - Universidad de las Fuerzas Armadas
+                ESPE</a></p>
+    </footer>
+
 </body>
+
 </html>
