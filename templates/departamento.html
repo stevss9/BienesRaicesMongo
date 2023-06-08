@@ -147,7 +147,7 @@
 
 <body>
     <div class="modal">
-        <form action="/departamento" method="POST">
+        <form action="/departamento" method="POST" onsubmit="return validarFormulario()">
             <h3 style="text-align: center;">Ingresar los datos del Departamento</h3>
             <div class="card-info" style="width: 560px;">
                 <div class="input_container">
@@ -189,6 +189,21 @@
         <br>
 
     </div>
+    <script>
+        function validarFormulario() {
+            var casaIdInput = document.querySelector('input[name="_id"]');
+            var casaId = casaIdInput.value.trim();
+    
+            if (!casaId.startsWith('2')) {
+                alert('El ID del departamento debe comenzar con "2"');
+                casaIdInput.focus();
+                return false;
+            }
+    
+            // El formulario se enviará si el ID de la casa cumple la condición
+            return true;
+        }
+    </script>
 </body>
 
 </html>

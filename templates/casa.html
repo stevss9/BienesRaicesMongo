@@ -147,7 +147,7 @@
 
 <body>
     <div class="modal">
-        <form action="/casa" method="POST">
+        <form action="/casa" method="POST" onsubmit="return validarFormulario()">
             <h3 style="text-align: center;">Ingresar los datos de la Casa</h3>
             <div class="card-info" style="width: 560px;">
                 <div class="input_container">
@@ -192,6 +192,40 @@
         <br>
 
     </div>
+
+    <script>
+        function validarFormulario() {
+            var casaIdInput = document.querySelector('input[name="_id"]');
+            var casaId = casaIdInput.value.trim();
+    
+            if (!casaId.startsWith('1')) {
+                alert('El ID de la casa debe comenzar con "1"');
+                casaIdInput.focus();
+                return false;
+            }
+    
+            var casaIdDuplicado = verificarIdDuplicado(casaId);
+            if (casaIdDuplicado) {
+                alert('El ID de la casa ya existe. Ingrese un ID diferente.');
+                casaIdInput.focus();
+                return false;
+            }
+    
+            return true;
+        }
+    
+        function verificarIdDuplicado(casaId) {
+            // Realiza una solicitud al servidor para verificar si el ID de la casa ya existe
+            // Puedes usar AJAX, Fetch API o cualquier otro método para enviar una solicitud al servidor
+    
+            // Ejemplo de verificación con AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/verificar_id?id=' + casaId, false); // Cambia la URL '/verificar_id' según tu configuración en el servidor
+            xhr.send();
+    
+            return xhr.status === 409; // Verifica el código de estado de la respuesta para determinar si existe un ID duplicado
+        }
+    </script>
 </body>
 
 </html>

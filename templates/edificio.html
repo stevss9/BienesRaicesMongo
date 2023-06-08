@@ -147,7 +147,7 @@
 
 <body>
     <div class="modal">
-        <form action="/edificio" method="POST">
+        <form action="/edificio" method="POST" onsubmit="return validarFormulario()">
             <h3 style="text-align: center;">Ingresar los datos del Edificio</h3>
             <div class="card-info" style="width: 560px;">
                 <div class="input_container">
@@ -172,7 +172,7 @@
                 </div>
                 <div class="input_container">
                     <label class="input_label">Pisos</label>
-                    <input class="input_field" type="number" placeholder="Pisos" name="pisos" required>
+                    <input class="input_field" type="number" placeholder="Pisos" name="pisos" id="pisos" required>
                 </div>
             </div>
             <br>
@@ -192,6 +192,21 @@
         <br>
 
     </div>
+    <script>
+        function validarFormulario() {
+            var casaIdInput = document.querySelector('input[name="_id"]');
+            var casaId = casaIdInput.value.trim();
+    
+            if (!casaId.startsWith('3')) {
+                alert('El ID del edificio debe comenzar con "3"');
+                casaIdInput.focus();
+                return false;
+            }
+    
+            // El formulario se enviará si el ID de la casa cumple la condición
+            return true;
+        }
+    </script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Modificar Departamentos</title>
+    <title>Modificar Edificios</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -50,12 +50,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="text-center">Editar Edificios</h5>
-                        <form action="/searchD" method="GET" class="mb-3">
+                        <form action="/searchE" method="GET" class="mb-3">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="nombre" placeholder="Buscar por Nombre">
                                 <button class="btn btn-primary" type="submit">Buscar</button>
                                 <button class="btn btn-danger" type="submit"><a
-                                        href="{{ url_for('modificarDepartamento') }}"
+                                        href="{{ url_for('modificarEdificio') }}"
                                         style="color: white;">Eliminar</a></button>
                             </div>
                         </form>
@@ -69,7 +69,7 @@
                                     <th>Ubicacion</th>
                                     <th>Precio</th>
                                     <th>Nombre</th>
-    
+                                    <th>Pisos</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -90,19 +90,19 @@
                                                 name="ubicacion" value="{{propiedad.ubicacion}}" disabled>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control precio-input" id="precio"
+                                            <input type="number" class="form-control precio-input" id="precio"
                                                 name="precio" value="{{propiedad.precio}}" disabled>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control nombre-input" id="nombre"
                                                 name="nombre" value="{{propiedad.nombre}}" disabled>
                                         </td>
-                                        <!--
+
                                         <td>
-                                            <input type="number" class="form-control nombre-input" id="pisos"
+                                            <input type="number" class="form-control pisos-input" id="pisos"
                                                 name="pisos" value="{{propiedad.pisos}}" disabled>
                                         </td>
--->
+
                                         <td>
                                             <button class="btn btn-danger btn-sm" type="button"
                                                 onclick="toggleEdit(this)">Editar</button>
@@ -136,16 +136,15 @@
             var nombreInput = row.querySelector('.nombre-input');
             var ubicacionInput = row.querySelector('.ubicacion-input');
             var precioInput = row.querySelector('.precio-input');
-            var tipoInput = row.querySelector('.tipo-input');
             var pisosInput = row.querySelector('.pisos-input');
-
+    
             nombreInput.disabled = !nombreInput.disabled;
             ubicacionInput.disabled = !ubicacionInput.disabled;
             precioInput.disabled = !precioInput.disabled;
-            tipoInput.disabled = !tipoInput.disabled;
             pisosInput.disabled = !pisosInput.disabled;
         }
     </script>
+    
 
 
 

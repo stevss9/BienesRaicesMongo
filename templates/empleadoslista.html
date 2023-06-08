@@ -56,6 +56,9 @@
                                 <input type="text" class="form-control" name="nombre"
                                     placeholder="Buscar por nombres">
                                 <button class="btn btn-primary" type="submit">Buscar</button>
+                                <button class="btn btn-danger" type="submit"><a
+                                    href="{{ url_for('getEmpleados') }}"
+                                    style="color: white;">Eliminar</a></button>
                             </div>
                         </form>
                         <table class="table table-striped">

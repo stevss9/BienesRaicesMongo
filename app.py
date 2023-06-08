@@ -1,5 +1,5 @@
 #Completado
-from flask import Flask, render_template, request, Response, jsonify, redirect, url_for
+from flask import Flask, render_template, request, Response, jsonify, redirect, url_for, send_file
 import database as dbase
 from product import Casa, Departamento, Edificio
 from personas import Cliente, Empleado
@@ -7,6 +7,7 @@ from ventas import Venta
 from bson import ObjectId
 from datetime import datetime
 from pymongo.errors import DuplicateKeyError
+import pdfkit, os
 
 db = dbase.dbConnection()
 
@@ -15,6 +16,7 @@ collection = db['Comentarios']
 usuarios_collection = db['usuarios']
 empleados_collection = db['empleados']
 transacciones = db['Transacciones']
+clientes_collection = db['clientes']
 
 app = Flask(__name__, static_folder='static')
 
@@ -31,6 +33,8 @@ def casa():
 def logueo():
 
     return render_template('login.html')
+
+
 
 @app.route('/principal')
 def principal():
@@ -123,6 +127,13 @@ def searchC():
 
     return render_template('modificarCasa.html', propiedades=propiedades)
 
+@app.route('/searchE', methods=['GET'])
+def searchE():
+    nombre = request.args.get('nombre')
+    propiedades = db['propiedades'].find({'tipo': 'edificio','nombre': nombre})
+
+    return render_template('modificarEdificio.html', propiedades=propiedades)
+
 @app.route('/searchD', methods=['GET'])
 def searchD():
     nombre = request.args.get('nombre')
@@ -213,8 +224,10 @@ def registrarVenta():
 @app.route('/darIdPropiedad/<string:propiedad_id>')
 def darIdPropiedad(propiedad_id):
     propiedades = db['propiedades'].find({'_id': propiedad_id})
+    clientes = db['clientes'].find()
+    empleados = db['empleados'].find()
 
-    return render_template('registrarventa.html', propiedades=propiedades)
+    return render_template('registrarventa.html', propiedades=propiedades, clientes=clientes, empleados=empleados)
 
 
 @app.route('/getClientes')
@@ -461,28 +474,30 @@ def registrar_venta(propiedad_id):
     # Redirecciona o realiza alguna acción después de insertar los datos
     return redirect(url_for('historialventa'))
 
+@app.route('/getEmpleadosClientes')
+def getEmpleadosClientes():
+    empleados = db['empleados'].find()
+    clientes = db['clientes'].find()
+
+    return render_template('registrarventa.html', empleados=empleados, clientes=clientes)
+
+@app.route('/cd')
+def cd():
+    return render_template('claveduplicada.html')
+
+@app.route('/noencontrado')
+def noencontrado():
+    return render_template('noencontrado.html')
 
 @app.errorhandler(404)
 def notFound(error=None):
-    message = {
-        'message': 'No encontrado ' + request.url,
-        'status': '404 Not Found'
-    }
-    response = jsonify(message)
-    response.status_code = 404
 
-    return response
+    return redirect(url_for('noencontrado'))
 
 @app.errorhandler(DuplicateKeyError)
 def handle_duplicate_key_error(error):
-    message = {
-        'message': 'Clave duplicada',
-        'status': '409 Conflict'
-    }
-    response = jsonify(message)
-    response.status_code = 409
-
-    return response
+    
+    return redirect(url_for('cd'))
 
 # Punto de entrada principal del programa
 if __name__ == '__main__':

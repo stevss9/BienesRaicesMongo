@@ -48,7 +48,7 @@
             <a href="#" class="w3-bar-item w3-button"><b>SMD</b> Bienes y Raices</a>
             <!-- Float links to the right. Hide them on small screens -->
             <div class="w3-right w3-hide-small">
-                <a href="{{ url_for('principal') }}" class="w3-bar-item w3-button"
+                <a href="{{ url_for('registrarVenta') }}" class="w3-bar-item w3-button"
                     style="color: blue;"><strong>Regresar</strong></a>
             </div>
             <div class="w3-right w3-hide-small">
@@ -57,50 +57,53 @@
             </div>
         </div>
     </div>
-
+<br><br><br><br>
     <div class="container">
         <h1 class="mt-4">Registro de Venta</h1>
         {% for propiedad in propiedades %}
         <form action="/propiedades/{{ propiedad._id }}" method="POST">
             <div class="form-group">
                 <label for="casa">Nombre de la Casa:</label>
-                <input type="text" id="casa" name="casa" value="{{ propiedad.nombre }}" class="form-control">
+                <input type="text" id="casa" name="casa" value="{{ propiedad.nombre }}" readonly class="form-control">
             </div>
             
             <div class="form-group">
                 <label for="empleado">Nombre del Empleado:</label>
                 <select id="nombreE" name="nombreE" class="form-control" required>
                     <option value="">Seleccione un empleado</option>
-                   
-                    <option value="Steveen Sinchiguano">Steveen Sinchiguano</option>
-                    <option value="Maylon Cuzco">Maylon Cuzco</option>
-                  
+                    {% for empleado in empleados %}
+                    <option value="{{ empleado.nombre }}">{{ empleado.nombre }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="form-group">
                 <label for="cliente">Nombre del Cliente:</label>
                 <select id="nombreC" name="nombreC" class="form-control" required>
                     <option value="">Seleccione un cliente</option>
-                    <option value="Derik Granda">Derik Granda</option>
-
-                    
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.nombre }}">{{ cliente.nombre }}</option>
+                    {% endfor %}        
                 </select>
             </div>
             <div class="form-group">
                 <label for="fecha">Fecha de Compra:</label>
-                <input type="date" id="fecha" name="fecha" class="form-control" value="">
+                <input type="date" id="fecha" name="fecha" class="form-control" value="" readonly>
             </div>
             <div class="form-group">
                 
                 <label for="valor">Valor:</label>
-                <input type="text" id="valor" name="valor" value="{{ propiedad.precio }}" class="form-control">
+                <input type="text" id="valor" name="valor" value="{{ propiedad.precio }}" readonly class="form-control">
                 
             </div>
-            <button type="submit" class="btn btn-primary">Registrar Venta</button>
+            <br>
+            <center>
+                <button type="submit" class="btn" style="background-color: #cccc;">Registrar Venta</button>
+            </center>
+            
         </form>
     </div>
     {% endfor %}
-
+<br><br><br>
     <!-- Footer -->
     <footer class="w3-center csa w3-padding-16">
         <p>Hecho por <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
